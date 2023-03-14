@@ -1,0 +1,23 @@
+/* This project required I create a store table with 15 items and 5 columns. My first SELECT statement simply pulled the entire table.
+The second SELECT statement added the value of the quantity column FROM the store table, and grouped the results by item. Adding item after SELECT ensured
+the table was easy to read by listing the item column first. */
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, size TEXT, quantity INTEGER, price NUMERIC);
+INSERT INTO store VALUES (1, 'Shirt', 'L', 3, 12.99);
+INSERT INTO store VALUES (2, 'Shirt', 'M', 5, 11.99);
+INSERT INTO store VALUES (3, 'Shirt', 'S', 2, 10.99); 
+INSERT INTO store VALUES (4, 'Pants', 'L', 4, 32.54); 
+INSERT INTO store VALUES (5, 'Pants', 'M', 1, 31.54);
+INSERT INTO store VALUES (6, 'Pants', 'S', 8, 30.54);
+INSERT INTO store VALUES (7, 'Tank Top', 'L', 2, 9.89); 
+INSERT INTO store VALUES (8, 'Tank Top', 'M', 3, 10.89); 
+INSERT INTO store VALUES (9, 'Tank Top', 'S', 4, 9.89);
+INSERT INTO store VALUES (10, 'Shorts', 'L', 1, 25.32); 
+INSERT INTO store VALUES (11, 'Shorts', 'M', 3, 24.32);
+INSERT INTO store VALUES (12, 'Shorts', 'S', 5, 23.32);
+INSERT INTO store VALUES (13, 'Long Sleeve Shirt', 'L', 5, 15.99); 
+INSERT INTO store VALUES (14, 'Long Sleeve Shirt', 'M', 2, 14.99);
+INSERT INTO store VALUES (15, 'Long Sleeve Shirt', 'S', 11, 13.99); 
+
+SELECT * FROM store;
+SELECT item, SUM(quantity) FROM store GROUP BY item; 

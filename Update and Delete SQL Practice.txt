@@ -1,0 +1,23 @@
+/* Created a table based on an app I have used before. Inserted some data so that I could update and delete it. */
+
+CREATE TABLE migraineBuddy (id INTEGER PRIMARY KEY AUTOINCREMENT,
+userName TEXT,
+userEmail TEXT,
+userPassword TEXT,
+userBirthYear INTEGER
+);
+
+INSERT INTO migraineBuddy (userName, userEmail, userPassword, userBirthYear) VALUES ("Faye", "faye@gmail.com", "password123", 1988);
+INSERT INTO migraineBuddy (userName, userEmail, userPassword, userBirthYear) VALUES ("Ash", "ash@outlook.com", "kitty@cat", 2008);
+INSERT INTO migraineBuddy (userName, userEmail, userPassword, userBirthYear) VALUES ("Miranda", "maseeit2@gmail.com", "psn&friends2", 1995);
+INSERT INTO migraineBuddy (userName, userEmail, userPassword, userBirthYear) VALUES ("Kass", "irispixels@gmail.com", "1223334444", 1997);
+
+SELECT * FROM migraineBuddy;
+
+UPDATE migraineBuddy SET userEmail = "brittanyfaye@gmail.com" WHERE userEmail = "faye@gmail.com";
+
+SELECT * FROM migraineBuddy;
+
+DELETE FROM migraineBuddy WHERE id = 2;
+
+SELECT * FROM migraineBuddy;

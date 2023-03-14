@@ -1,0 +1,97 @@
+/* Creating a Famous People project for Khan Academy. Decided to make a table of some of my favorite celebrities, their zodiac signs, their relationship status, 
+as well as a compatibility table so I could practice self JOINS. */
+
+CREATE TABLE celebs (id INTEGER PRIMARY KEY AUTOINCREMENT,
+firstname TEXT,
+lastname TEXT,
+birthdate TEXT,
+age INTEGER); 
+
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Pedro", "Pascal", "April 2, 1975", 47);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Danielle", "Brooks", "September 17, 1989", 33);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Elliot", "Page", "February 21, 1987", 35);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Rami", "Malek", "May 12, 1981", 41);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Rosario", "Dawson", "May 9, 1979", 43);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Zoe", "Kravitz", "December 1, 1988", 34);
+INSERT INTO celebs (firstname, lastname, birthdate, age)
+VALUES ("Peter", "Dinklage", "June 11, 1969", 53);
+
+CREATE TABLE zodiacs (id INTEGER PRIMARY KEY AUTOINCREMENT,
+celebs_id INTEGER,
+sign TEXT,
+element TEXT,
+symbol TEXT,
+chinese_sign TEXT);
+
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (1, "Aries", "Fire", "Ram", "Rabbit"); 
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (2, "Virgo", "Earth", "Maiden", "Snake");
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (3, "Pisces", "Water", "Fish", "Rabbit");
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (4, "Taurus", "Earth", "Bull", "Rooster");
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (5, "Taurus", "Earth", "Bull", "Goat");
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (6, "Sagittarius", "Fire", "Archer", "Dragon");
+INSERT INTO zodiacs (celebs_id, sign, element, symbol, chinese_sign) VALUES (7, "Gemini", "Air", "Twin", "Rooster");
+
+CREATE TABLE relationships (id INTEGER PRIMARY KEY AUTOINCREMENT,
+status TEXT,
+relation_name TEXT,
+celeb_relation_id INTEGER);
+
+INSERT INTO relationships (status, relation_name, celeb_relation_id) VALUES ("Married", "Dennis Gelin", 2); 
+INSERT INTO relationships (status, celeb_relation_id) VALUES ("Divorced", 3);
+INSERT INTO relationships (status, relation_name, celeb_relation_id) VALUES ("Dating", "Lucy Boynton", 4);
+INSERT INTO relationships (status, relation_name, celeb_relation_id) VALUES ("Dating", "Nnamdi Okafor", 5); 
+INSERT INTO relationships (status, relation_name, celeb_relation_id) VALUES ("Married", "Erica Schmidt", 7);
+
+CREATE TABLE compatible_friends (id INTEGER PRIMARY KEY AUTOINCREMENT,
+user1_id INTEGER,
+user2_id INTEGER,
+user3_id INTEGER,
+user4_id INTEGER,
+user5_id INTEGER);
+
+INSERT INTO compatible_friends (user1_id, user2_id) VALUES (1, 6);
+INSERT INTO compatible_friends (user1_id, user3_id) VALUES (1, 7);
+INSERT INTO compatible_friends (user4_id, user5_id) VALUES (3, 4); 
+
+/* Used this SELECT statement to view the celebs table and create other SELECT statements. */
+
+SELECT * FROM celebs;
+
+/* I wanted to see the data listed as the celebrity name and their sign. */
+
+SELECT celebs.firstname, celebs.lastname, zodiacs.sign
+FROM celebs
+JOIN zodiacs
+ON celebs.id = zodiacs.celebs_id;
+
+/* Practiced self JOINS using this query. */
+
+SELECT a.lastname AS "bestie 1", b.lastname AS "bestie 2"
+FROM compatible_friends
+JOIN celebs a
+ON a.id = compatible_friends.user1_id
+JOIN celebs b
+ON b.id = compatible_friends.user2_id;
+
+/* Testing JOINING three tables in order to see the celebrity, their sign, and their relationship status. I wanted all rows (despite there being a NULL) to be 
+visible so I made the last JOIN a LEFT OUTER JOIN. */
+
+SELECT celebs.firstname, celebs.lastname, zodiacs.sign, relationships.status
+FROM celebs
+JOIN zodiacs
+ON celebs.id = zodiacs.celebs_id
+LEFT OUTER JOIN relationships
+ON zodiacs.celebs_id = relationships.celeb_relation_id;
+
+/* Just one final JOIN to view the data in a way that interested me. */
+
+SELECT zodiacs.sign, zodiacs.element, zodiacs.symbol, zodiacs.chinese_sign, celebs.firstname, celebs.lastname 
+FROM zodiacs
+JOIN celebs
+ON zodiacs.celebs_id = celebs.id
